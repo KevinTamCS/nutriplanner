@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<head>
+  <title>NutriPlanner</title>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="index.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Custom JS -->
+  <script src="index.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+<body onload=onLoad()>
+  <div id="header" class="row">
+    <div class="col">
+      <img id="logo" src="logo.png">
+      NutriPlanner
+    </div>
+
+    <div class="col"></div>
+
+    <div class="col">
+      <img id="profile" src="usericon.png"> 
+    </div>
+  </div>
+
+  <div id="body">
+    
+    <div class="row">
+      
+      <div class="col">
+
+        <h1>John Doe's Overview</h1>
+
+        <hr>
+        
+        <h4 id="calories-consumed">Calories Consumed</h4>
+        <div class="progress">
+          <div id="calories" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="250" aria-valuemin="0" aria-valuemax="2500"></div>
+        </div>
+        
+        <h6 id="calories-left">calories remaining today</h6>
+        <button id="recommend-foods" type="button" class="btn btn-danger" onclick="recommendFoods()">I'm hungry!</button>
+        <br>
+        Recommend some foods based on your nutrition today and your calorie maximum.
+        
+        <br>
+        <br>
+        <h3>Today's Essential Nutrients</h3>
+        Protein
+        <div class="progress">
+          <div id="protein" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        
+        Vitamins
+        <div class="progress">
+          <div id="vitamins" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        
+        Minerals
+        <div class="progress">
+          <div id="minerals" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        Fats
+        <div class="progress">
+          <div id="fats" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        Carbs
+        <div class="progress">
+          <div id="carbs" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        Water
+        <div class="progress">
+          <div id="water" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="2" aria-valuemin="0" aria-valuemax="8"></div>
+        </div>
+
+        <hr>
+
+        <h1>Add New Food</h1>
+
+        <input id="quick-add-food" type="text">
+        <button id="quick-add-food-button" type="button" class="btn btn-primary" onclick="quickAddFood()">Add</button>
+        <button id="cycle-button" type="button" class="btn btn-primary" onclick="cycleThroughNutrition()">Cycle</button>
+        
+      </div>
+      
+      <div class="col">
+        <!-- <div id="emotion-image"> -->
+          <img id="all-might" src="AllMight2Small.png">
+        <!-- </div> -->
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="foodSelectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Select product</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Please select the product that best matches what you ate.
+            <label id="multiple-selection-items"></label>
+          </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button id="confirm-quick-add-button" type="button" class="btn btn-success" onclick='quickAddFood()'>Confirm</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="recommendFoodsModal" tabindex="-1" role="dialog" aria-labelledby="recommendFoodsLabel" aria-hidden="true" onclick="recommendFoods()">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="recommendFoods">Here's a suggestion...</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div id="food-suggestion" class="modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, thanks</button>
+                <button type="button" class="btn btn-primary">Yes, please!</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </body>
